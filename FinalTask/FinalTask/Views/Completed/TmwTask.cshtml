@@ -1,0 +1,24 @@
+﻿@model IEnumerable<FinalTask.Models.TmwTask>
+@{
+    ViewBag.Title = "TmwTask";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<h2>Tomorrow's Task</h2>
+
+<table style="border: 2px solid White">
+    <tr>
+        <th style="border: 2px solid White">Task</th>
+
+    </tr>
+
+    @foreach (var task in Model)
+    {
+        <tr style="border: 2px solid White">
+            <td style="border: 2px solid White">@task.Task.DutyName</td>
+        </tr>
+
+    }
+</table>

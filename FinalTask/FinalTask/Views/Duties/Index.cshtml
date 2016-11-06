@@ -1,0 +1,51 @@
+﻿@model IEnumerable<FinalTask.Duty>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.DutyName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DutyDueDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DutyCompletion)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.DutyName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Description)
+        </td>
+        <td>
+            @Html.TextBoxFor(modelItem => item.DutyDueDate, "{0:MM/dd/yyyy}")
+        </td>
+        <td>
+            @Html.TextBoxFor(modelItem => item.DutyCompletion, "{0:MM/dd/yyyy}")
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.DutyId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.DutyId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.DutyId })
+        </td>
+    </tr>
+}
+
+</table>

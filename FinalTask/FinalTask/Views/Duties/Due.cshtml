@@ -1,0 +1,26 @@
+﻿@model IEnumerable<FinalTask.Models.TodayModel>
+
+@{
+    ViewBag.Title = "Due";
+}
+
+<h2>Today's Task</h2>
+<h3>Due Today</h3>
+
+<table style="border: 2px solid Purple">
+    <tr>
+        <th style="border: 2px solid White">Employee</th>
+        <th style="border: 2px solid White">Task</th>
+      
+    </tr>
+
+    @foreach (var task in Model)
+    {
+        <tr style="border: 2px solid Purple">
+            <td style="border: 2px solid White">@task.Employee.UserName</td>
+            <td style="border: 2px solid White">@task.Task.DutyName</td>
+        </tr>
+
+    }
+</table>
+

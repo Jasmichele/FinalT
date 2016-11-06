@@ -1,0 +1,140 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="DutyTModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Duty">
+          <Key>
+            <PropertyRef Name="DutyId" />
+          </Key>
+          <Property Name="DutyId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DutyName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Description" Type="text" Nullable="false" />
+          <Property Name="DutyDueDate" Type="date" Nullable="false" />
+          <Property Name="DutyCompletion" Type="date" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="DutyId" Type="int" />
+        </EntityType>
+        <Association Name="FK_User_Duty">
+          <End Role="Duty" Type="Self.Duty" Multiplicity="0..1" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Duty">
+              <PropertyRef Name="DutyId" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="DutyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DutyTModelStoreContainer">
+          <EntitySet Name="Duty" EntityType="Self.Duty" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_User_Duty" Association="Self.FK_User_Duty">
+            <End Role="Duty" EntitySet="Duty" />
+            <End Role="User" EntitySet="User" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DutyTModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Duty">
+          <Key>
+            <PropertyRef Name="DutyId" />
+          </Key>
+          <Property Name="DutyId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DutyName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="DutyDueDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="DutyCompletion" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="Users" Relationship="Self.FK_User_Duty" FromRole="Duty" ToRole="User" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="DutyId" Type="Int32" />
+          <NavigationProperty Name="Duty" Relationship="Self.FK_User_Duty" FromRole="User" ToRole="Duty" />
+        </EntityType>
+        <Association Name="FK_User_Duty">
+          <End Role="Duty" Type="Self.Duty" Multiplicity="0..1" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Duty">
+              <PropertyRef Name="DutyId" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="DutyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DutyTEntities1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Duties" EntityType="Self.Duty" />
+          <EntitySet Name="Users" EntityType="Self.User" />
+          <AssociationSet Name="FK_User_Duty" Association="Self.FK_User_Duty">
+            <End Role="Duty" EntitySet="Duties" />
+            <End Role="User" EntitySet="Users" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DutyTModelStoreContainer" CdmEntityContainer="DutyTEntities1">
+          <EntitySetMapping Name="Duties">
+            <EntityTypeMapping TypeName="DutyTModel.Duty">
+              <MappingFragment StoreEntitySet="Duty">
+                <ScalarProperty Name="DutyId" ColumnName="DutyId" />
+                <ScalarProperty Name="DutyName" ColumnName="DutyName" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="DutyDueDate" ColumnName="DutyDueDate" />
+                <ScalarProperty Name="DutyCompletion" ColumnName="DutyCompletion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="DutyTModel.User">
+              <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="DutyId" ColumnName="DutyId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

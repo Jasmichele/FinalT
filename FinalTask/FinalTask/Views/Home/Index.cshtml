@@ -1,0 +1,29 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="jumbotron">
+    <h1>New Task</h1>
+    <p class="lead">Create a new task!!</p>
+    <p class="btn btn-primary btn-lg">@Html.ActionLink("Create Task", "Create", "Duties")</p>
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        <h2>Today's Completed Task</h2>
+        <p>
+            A list of all tasks completed today.
+        </p>
+        <p class="btn btn-default">@Html.ActionLink("Completed Today", "TodCompl", "Completed")</p>
+    </div>
+    <div class="col-md-4">
+        <h2>Tomorrow's Tasks</h2>
+        <p>A list of tasks for tomorrow!!</p>
+        <p class="btn btn-default">@Html.ActionLink("Tomorrow's Tasks", "TmwTask", "Completed")</p>
+    </div>
+    <div class="col-md-4">
+        <h2>Tomorrow's Completed Task</h2>
+        <p>Tasks for tomorrow that are complete</p>
+        <p class="btn btn-default">@Html.ActionLink("Tomorrow's Tasks", "TmwComp", "Completed")</p>
+    </div>
+</div>
